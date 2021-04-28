@@ -9,7 +9,7 @@ const signin = require('./controllers/signin')
 const id = require('./controllers/profile')
 const image = require('./controllers/image')
 
-const hostIP = '127.0.0.1';
+// const hostIP = '127.0.0.1';
 const PORT = process.env.PORT;
 
 const app = express();
@@ -17,11 +17,15 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const db = knex({
-  client: 'pg',
-  connection: {
-    connectionString : process.env.DATABASE_URL,
-    ssl: true,
-  }
+	client: 'pg',
+	connectionString: process.env.DATABASE_URL,
+	ssl: {
+	rejectUnauthorized: false
+	}
+  // connection: {
+  //   connectionString : process.env.DATABASE_URL,
+  //   ssl: true,
+  // }
 });
 
 app.get('/', (req, res) => {res.send('it is working') })
